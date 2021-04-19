@@ -43,7 +43,8 @@ from __future__ import with_statement  # Not required in Python 2.6 any more
 import argparse
 import numpy
 import sys
-from pyquaternion import Quaternion
+from pyquaternion import Quaternion as quat
+import peigen
 
 import associate
 
@@ -77,13 +78,17 @@ def align(model, data):
 
     model_aligned = rot * model + trans
 
-    print(rot, trans)
     print('Rotation matrix det is ', numpy.linalg.det(rot))
+
     alignment_error = model_aligned - data
 
     trans_error = numpy.sqrt(numpy.sum(numpy.multiply(alignment_error, alignment_error), 0)).A[0]
 
     return rot, trans, trans_error
+
+
+def R(motion):
+    return motion[0:3, 0:3]
 
 
 def plot_traj(ax, stamps, traj, style, color, label):
@@ -118,6 +123,10 @@ def plot_traj(ax, stamps, traj, style, color, label):
         ax.plot(x, y, style, color=color, label=label)
 
 
+def angle(R):
+    return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
+
+
 if __name__ == "__main__":
     # parse command line
     parser = argparse.ArgumentParser(description='''
@@ -150,22 +159,50 @@ if __name__ == "__main__":
     first_xyz = numpy.matrix([[float(value) for value in first_list[a][0:3]] for a, b in matches]).transpose()
     second_xyz = numpy.matrix(
         [[float(value) * float(args.scale) for value in second_list[b][0:3]] for a, b in matches]).transpose()
+
+    first_quat = numpy.matrix([[float(value) for value in first_list[a][3:7]] for a, b in matches])
+    second_quat = numpy.matrix(
+        [[float(value) * float(args.scale) for value in second_list[b][3:7]] for a, b in matches])
+
+    first_quats = []
+    second_quats = []
+
     rot, trans, trans_error = align(second_xyz, first_xyz)
 
     second_xyz_aligned = rot * second_xyz + trans
+    angle_zero = angle(numpy.matmul(rot, numpy.transpose(rot)))
 
-    # first_stamps = first_list.keys()
+    for quat_1 in first_quat:
+        quat_1_array = numpy.squeeze(numpy.asarray(quat_1))
+
+        quat_constr = quat(quat_1_array[3], quat_1_array[0], quat_1_array[1], quat_1_array[2])
+        first_quats.append(quat_constr)
+
+    counter = 0
+
+    rot_errors = []
+
+    for quat_1 in second_quat:
+        quat_1_array = numpy.squeeze(numpy.asarray(quat_1))
+        quat_constr = quat(quat_1_array[3], quat_1_array[0], quat_1_array[1], quat_1_array[2])
+        orientation_aligned = first_quats[counter].inverse.rotation_matrix * rot * quat_constr.rotation_matrix
+        rot_errors.append(angle(orientation_aligned))
+        counter += 1
+
     first_stamps = sorted(first_list)
     first_xyz_full = numpy.matrix([[float(value) for value in first_list[b][0:3]] for b in first_stamps]).transpose()
 
-    # second_stamps = second_list.keys()
     second_stamps = sorted(second_list)
     second_xyz_full = numpy.matrix(
         [[float(value) * float(args.scale) for value in second_list[b][0:3]] for b in second_stamps]).transpose()
     second_xyz_full_aligned = rot * second_xyz_full + trans
 
     if args.verbose:
-        print("compared_pose_pairs  pairs" + str(len(trans_error)))
+        print("compared_pose_pairs " + str(len(trans_error)) + " pairs")
+
+        print("alignment transformation R + t is")
+        print(rot)
+        print(trans)
 
         print("absolute_translational_error.rmse " + str(numpy.sqrt(
             numpy.dot(trans_error, trans_error) / len(trans_error))) + " m")
@@ -174,6 +211,16 @@ if __name__ == "__main__":
         print("absolute_translational_error.std " + str(numpy.std(trans_error)) + " m")
         print("absolute_translational_error.min " + str(numpy.min(trans_error)) + " m")
         print("absolute_translational_error.max " + str(numpy.max(trans_error)) + " m")
+
+        print()
+
+        print("absolute_rotational_error.rmse " + str(numpy.sqrt(
+            numpy.dot(rot_errors, rot_errors) / len(rot_errors))) + " rad")
+        print("absolute_rotational_error.mean " + str(numpy.mean(rot_errors)) + " rad")
+        print("absolute_rotational_error.median " + str(numpy.median(rot_errors)) + " rad")
+        print("absolute_rotational_error.std " + str(numpy.std(rot_errors)) + " rad")
+        print("absolute_rotational_error.min " + str(numpy.min(rot_errors)) + "  rad")
+        print("absolute_rotational_error.max " + str(numpy.max(rot_errors)) + " rad")
     else:
         print(" + " + str(numpy.sqrt(numpy.dot(trans_error, trans_error) / len(trans_error))))
 
