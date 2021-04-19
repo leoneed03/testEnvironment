@@ -126,7 +126,7 @@ def angle(R):
     return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
 
 
-def evaluator(first_file, second_file):
+def evaluate(first_file, second_file):
     first_list = associate.read_file_list(first_file)
     second_list = associate.read_file_list(second_file)
 

@@ -44,6 +44,7 @@ import argparse
 import numpy
 import sys
 from pyquaternion import Quaternion as quat
+import peigen
 
 import associate
 
@@ -126,27 +127,50 @@ def angle(R):
     return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
 
 
-def evaluator(first_file, second_file):
-    first_list = associate.read_file_list(first_file)
-    second_list = associate.read_file_list(second_file)
+if __name__ == "__main__":
+    # parse command line
+    parser = argparse.ArgumentParser(description='''
+    This script computes the absolute trajectory error from the ground truth trajectory and the estimated trajectory. 
+    ''')
+    parser.add_argument('first_file', help='ground truth trajectory (format: timestamp tx ty tz qx qy qz qw)')
+    parser.add_argument('second_file', help='estimated trajectory (format: timestamp tx ty tz qx qy qz qw)')
+    parser.add_argument('--offset', help='time offset added to the timestamps of the second file (default: 0.0)',
+                        default=0.0)
+    parser.add_argument('--scale', help='scaling factor for the second trajectory (default: 1.0)', default=1.0)
+    parser.add_argument('--max_difference',
+                        help='maximally allowed time difference for matching entries (default: 0.02)', default=0.02)
+    parser.add_argument('--save', help='save aligned second trajectory to disk (format: stamp2 x2 y2 z2)')
+    parser.add_argument('--save_associations',
+                        help='save associated first and aligned second trajectory to disk (format: stamp1 x1 y1 z1 stamp2 x2 y2 z2)')
+    parser.add_argument('--plot', help='plot the first and the aligned second trajectory to an image (format: png)')
+    parser.add_argument('--verbose',
+                        help='print all evaluation data (otherwise, only the RMSE absolute translational error in meters after alignment will be printed)',
+                        action='store_true')
+    args = parser.parse_args()
 
-    matches = associate.associate(first_list, second_list, 0.0, 0.02)
+    first_list = associate.read_file_list(args.first_file)
+    second_list = associate.read_file_list(args.second_file)
 
+    matches = associate.associate(first_list, second_list, float(args.offset), float(args.max_difference))
     if len(matches) < 2:
         sys.exit(
             "Couldn't find matching timestamp pairs between groundtruth and estimated trajectory! Did you choose the correct sequence?")
 
     first_xyz = numpy.matrix([[float(value) for value in first_list[a][0:3]] for a, b in matches]).transpose()
     second_xyz = numpy.matrix(
-        [[float(value) * float(1.0) for value in second_list[b][0:3]] for a, b in matches]).transpose()
+        [[float(value) * float(args.scale) for value in second_list[b][0:3]] for a, b in matches]).transpose()
 
     first_quat = numpy.matrix([[float(value) for value in first_list[a][3:7]] for a, b in matches])
     second_quat = numpy.matrix(
-        [[float(value) * float(1.0) for value in second_list[b][3:7]] for a, b in matches])
+        [[float(value) * float(args.scale) for value in second_list[b][3:7]] for a, b in matches])
 
     first_quats = []
+    second_quats = []
 
     rot, trans, trans_error = align(second_xyz, first_xyz)
+
+    second_xyz_aligned = rot * second_xyz + trans
+    angle_zero = angle(numpy.matmul(rot, numpy.transpose(rot)))
 
     for quat_1 in first_quat:
         quat_1_array = numpy.squeeze(numpy.asarray(quat_1))
@@ -166,32 +190,72 @@ def evaluator(first_file, second_file):
         counter += 1
 
     first_stamps = sorted(first_list)
+    first_xyz_full = numpy.matrix([[float(value) for value in first_list[b][0:3]] for b in first_stamps]).transpose()
+
     second_stamps = sorted(second_list)
     second_xyz_full = numpy.matrix(
-        [[float(value) for value in second_list[b][0:3]] for b in second_stamps]).transpose()
+        [[float(value) * float(args.scale) for value in second_list[b][0:3]] for b in second_stamps]).transpose()
+    second_xyz_full_aligned = rot * second_xyz_full + trans
 
-    print("compared_pose_pairs " + str(len(trans_error)) + " pairs")
+    if args.verbose:
+        print("compared_pose_pairs " + str(len(trans_error)) + " pairs")
 
-    print("alignment transformation R + t is")
-    print(rot)
-    print(trans)
+        print("alignment transformation R + t is")
+        print(rot)
+        print(trans)
 
-    print("absolute_translational_error.rmse " + str(numpy.sqrt(
-        numpy.dot(trans_error, trans_error) / len(trans_error))) + " m")
-    print("absolute_translational_error.mean " + str(numpy.mean(trans_error)) + " m")
-    print("absolute_translational_error.median " + str(numpy.median(trans_error)) + " m")
-    print("absolute_translational_error.std " + str(numpy.std(trans_error)) + " m")
-    print("absolute_translational_error.min " + str(numpy.min(trans_error)) + " m")
-    print("absolute_translational_error.max " + str(numpy.max(trans_error)) + " m")
+        print("absolute_translational_error.rmse " + str(numpy.sqrt(
+            numpy.dot(trans_error, trans_error) / len(trans_error))) + " m")
+        print("absolute_translational_error.mean " + str(numpy.mean(trans_error)) + " m")
+        print("absolute_translational_error.median " + str(numpy.median(trans_error)) + " m")
+        print("absolute_translational_error.std " + str(numpy.std(trans_error)) + " m")
+        print("absolute_translational_error.min " + str(numpy.min(trans_error)) + " m")
+        print("absolute_translational_error.max " + str(numpy.max(trans_error)) + " m")
 
-    print()
+        print()
 
-    print("absolute_rotational_error.rmse " + str(numpy.sqrt(
-        numpy.dot(rot_errors, rot_errors) / len(rot_errors))) + " rad")
-    print("absolute_rotational_error.mean " + str(numpy.mean(rot_errors)) + " rad")
-    print("absolute_rotational_error.median " + str(numpy.median(rot_errors)) + " rad")
-    print("absolute_rotational_error.std " + str(numpy.std(rot_errors)) + " rad")
-    print("absolute_rotational_error.min " + str(numpy.min(rot_errors)) + "  rad")
-    print("absolute_rotational_error.max " + str(numpy.max(rot_errors)) + " rad")
+        print("absolute_rotational_error.rmse " + str(numpy.sqrt(
+            numpy.dot(rot_errors, rot_errors) / len(rot_errors))) + " rad")
+        print("absolute_rotational_error.mean " + str(numpy.mean(rot_errors)) + " rad")
+        print("absolute_rotational_error.median " + str(numpy.median(rot_errors)) + " rad")
+        print("absolute_rotational_error.std " + str(numpy.std(rot_errors)) + " rad")
+        print("absolute_rotational_error.min " + str(numpy.min(rot_errors)) + "  rad")
+        print("absolute_rotational_error.max " + str(numpy.max(rot_errors)) + " rad")
+    else:
+        print(" + " + str(numpy.sqrt(numpy.dot(trans_error, trans_error) / len(trans_error))))
 
-    return numpy.mean(trans_error), numpy.mean(rot_errors)
+    if args.save_associations:
+        file = open(args.save_associations, "w")
+        file.write("\n".join(
+            ["       " % (a, x1, y1, z1, b, x2, y2, z2) for (a, b), (x1, y1, z1), (x2, y2, z2) in
+             zip(matches, first_xyz.transpose().A, second_xyz_aligned.transpose().A)]))
+        file.close()
+
+    if args.save:
+        file = open(args.save, "w")
+        file.write("\n".join([" " % stamp + " ".join(["" % d for d in line]) for stamp, line in
+                              zip(second_stamps, second_xyz_full_aligned.transpose().A)]))
+        file.close()
+
+    if args.plot:
+        import matplotlib
+
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        plot_traj(ax, first_stamps, first_xyz_full.transpose().A, '-', "black", u'Точная траектория')
+        plot_traj(ax, second_stamps, second_xyz_full_aligned.transpose().A, '-', "blue", u'Оцененная траектория')
+
+        label = u'Разница'
+        for (a, b), (x1, y1, z1), (x2, y2, z2) in zip(matches, first_xyz.transpose().A,
+                                                      second_xyz_aligned.transpose().A):
+            ax.plot([x1, x2], [y1, y2], '-', color="red", label=label)
+            label = ""
+
+        ax.legend()
+
+        ax.set_xlabel(u'x [м]')
+        ax.set_ylabel(u'y [м]')
+        plt.savefig(args.plot, dpi=90)
