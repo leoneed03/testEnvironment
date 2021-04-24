@@ -40,14 +40,35 @@ This script computes the absolute trajectory error from the ground truth
 trajectory and the estimated trajectory.
 """
 from __future__ import with_statement  # Not required in Python 2.6 any more
+import tokenize
 import argparse
 import numpy
 import sys
+import regex as re
+import numpy as np
 from pyquaternion import Quaternion as quat
 
 import evaluate_ate_are
+
 # import evaluators.associate
 
+def get_user_system_time_memory_kb(filename_memory):
+    f = open(filename_memory, 'r')
+    text = f.read()
+    text_regular_user_time = 'User time (.*?)\n'
+    found_user_time = re.findall(text_regular_user_time, text)
+
+    text_regular_system_time = 'System time (.*?)\n'
+    found_system_time = re.findall(text_regular_system_time, text)
+
+    text_regular_memory = 'Maximum resident set size (.*?)\n'
+    found_memory = re.findall(text_regular_memory, text)
+
+    splited_user_time = found_user_time[0].split()
+    splited_system_time = found_system_time[0].split()
+    splited_memory = found_memory[0].split()
+
+    return splited_user_time[1], splited_system_time[1], splited_memory[1]
 
 
 if __name__ == "__main__":
@@ -66,10 +87,24 @@ if __name__ == "__main__":
 
     ate_are_dict = []
 
+    time_s = []
+    memory_mb = []
+
     for i in range(int(number_of_iterations)):
         print('\n\n\n======================================================================================')
         print('start comparing iteration number ', i)
-        mean_ate, mean_are = evaluate_ate_are.evaluate(directory_root + '/' + str(i) + '/ba.txt', groundtruth_file)
+        directory_iteration = directory_root + '/' + str(i)
+        memory_file = directory_iteration + '/memory.txt'
+        found_usr_time, found_system_time, found_memory_kb = get_user_system_time_memory_kb(memory_file)
+        print(found_usr_time)
+        print(type(found_usr_time))
+
+        sum_time = float(found_usr_time) + float(found_system_time)
+        sum_Mb = float(found_memory_kb) / 1024.0
+        time_s.append(sum_time)
+        memory_mb.append(sum_Mb)
+
+        mean_ate, mean_are = evaluate_ate_are.evaluate(directory_iteration + '/ba.txt', groundtruth_file)
         print('iteration, ate, are: ', i, mean_ate, mean_are)
         ate_are_dict.append([mean_ate, i])
     sorted_ate_iterations = sorted(ate_are_dict)
@@ -78,3 +113,9 @@ if __name__ == "__main__":
     iterations = int(number_of_iterations)
     iterations = min(iterations / 2, (iterations - 1) / 2)
     print('median iteration is ', sorted_ate_iterations[int(iterations)])
+
+    print('time mean ', np.mean(time_s), ' s')
+    print('time std ', np.std(time_s), ' s')
+
+    print('memory mean ', np.mean(memory_mb), ' Mb')
+    print('memory std ', np.std(memory_mb), ' Mb')

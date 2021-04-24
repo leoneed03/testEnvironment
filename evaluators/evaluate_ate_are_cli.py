@@ -44,7 +44,6 @@ import argparse
 import numpy
 import sys
 from pyquaternion import Quaternion as quat
-import peigen
 
 import associate
 
@@ -123,6 +122,38 @@ def plot_traj(ax, stamps, traj, style, color, label):
         ax.plot(x, y, style, color=color, label=label)
 
 
+def plot_traj_z(ax, stamps, first_stamp, traj, style, color, label):
+    """
+    Plot a trajectory using matplotlib.
+
+    Input:
+    ax -- the plot
+    stamps -- time stamps (1xn)
+    traj -- trajectory (3xn)
+    style -- line style
+    color -- line color
+    label -- plot legend
+
+    """
+    stamps.sort()
+    interval = numpy.median([s - t for s, t in zip(stamps[1:], stamps[:-1])])
+    x = []
+    y = []
+    last = stamps[0]
+    for i in range(len(stamps)):
+        if stamps[i] - last < 2 * interval:
+            y.append(traj[i][2])
+            x.append(stamps[i] - first_stamp)
+        elif len(x) > 0:
+            ax.plot(x, y, style, color=color, label=label)
+            label = ""
+            x = []
+            y = []
+        last = stamps[i]
+    if len(x) > 0:
+        ax.plot(x, y, style, color=color, label=label)
+
+
 def angle(R):
     return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
 
@@ -143,8 +174,13 @@ if __name__ == "__main__":
     parser.add_argument('--save_associations',
                         help='save associated first and aligned second trajectory to disk (format: stamp1 x1 y1 z1 stamp2 x2 y2 z2)')
     parser.add_argument('--plot', help='plot the first and the aligned second trajectory to an image (format: png)')
+    parser.add_argument('--plot_z', help='plot the first and the aligned second trajectory z-coordinate to an image (format: png)')
+
     parser.add_argument('--verbose',
                         help='print all evaluation data (otherwise, only the RMSE absolute translational error in meters after alignment will be printed)',
+                        action='store_true')
+    parser.add_argument('--show_difference',
+                        help='show in red difference on plot',
                         action='store_true')
     args = parser.parse_args()
 
@@ -243,19 +279,49 @@ if __name__ == "__main__":
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
 
-        fig = plt.figure()
+        fig = plt.figure(figsize=(8,5))
         ax = fig.add_subplot(111)
-        plot_traj(ax, first_stamps, first_xyz_full.transpose().A, '-', "black", u'Точная траектория')
-        plot_traj(ax, second_stamps, second_xyz_full_aligned.transpose().A, '-', "blue", u'Оцененная траектория')
+        plot_traj(ax, first_stamps, first_xyz_full.transpose().A, '-', "green", u'Точная траектория')
+        plot_traj(ax, second_stamps, second_xyz_full_aligned.transpose().A, '-', "orange", u'Оцененная траектория')
 
-        label = u'Разница'
-        for (a, b), (x1, y1, z1), (x2, y2, z2) in zip(matches, first_xyz.transpose().A,
-                                                      second_xyz_aligned.transpose().A):
-            ax.plot([x1, x2], [y1, y2], '-', color="red", label=label)
-            label = ""
+        if args.show_difference:
+            label = u'Разница'
+
+            for (a, b), (x1, y1, z1), (x2, y2, z2) in zip(matches, first_xyz.transpose().A,
+                                                          second_xyz_aligned.transpose().A):
+                ax.plot([x1, x2], [y1, y2], '-', color="red", label=label)
+                label = ""
 
         ax.legend()
 
         ax.set_xlabel(u'x [м]')
         ax.set_ylabel(u'y [м]')
-        plt.savefig(args.plot, dpi=90)
+        plt.grid()
+        # plt.xticks(fontsize=14)
+        plt.savefig(args.plot, dpi=600)
+
+    if args.plot_z:
+        import matplotlib
+
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+
+        fig = plt.figure(figsize=(10,5))
+        ax = fig.add_subplot(111)
+        plot_traj_z(ax, first_stamps, first_stamps[0], first_xyz_full.transpose().A, '-', "green", u'Точная траектория')
+        plot_traj_z(ax, second_stamps, second_stamps[0], second_xyz_full_aligned.transpose().A, '-', "orange", u'Оцененная траектория')
+
+        if args.show_difference:
+            label = u'Разница'
+
+            for (a, b), (x1, y1, z1), (x2, y2, z2) in zip(matches, first_xyz.transpose().A,
+                                                          second_xyz_aligned.transpose().A):
+                ax.plot([x1, x2], [y1, y2], '-', color="red", label=label)
+                label = ""
+
+        ax.legend()
+
+        ax.set_xlabel(u't [c]')
+        ax.set_ylabel(u'z [м]')
+        plt.grid()
+        plt.savefig(args.plot_z, dpi=600)

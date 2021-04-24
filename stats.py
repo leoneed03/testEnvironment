@@ -45,87 +45,6 @@ import numpy
 import sys
 from pyquaternion import Quaternion as quat
 
-import associate
-
-
-def align(model, data):
-    """Align two trajectories using the method of Horn (closed-form).
-
-    Input:
-    model -- first trajectory (3xn)
-    data -- second trajectory (3xn)
-
-    Output:
-    rot -- rotation matrix (3x3)
-    trans -- translation vector (3x1)
-    trans_error -- translational error per point (1xn)
-
-    """
-    numpy.set_printoptions(precision=3, suppress=True)
-    model_zerocentered = model - model.mean(1)
-    data_zerocentered = data - data.mean(1)
-
-    W = numpy.zeros((3, 3))
-    for column in range(model.shape[1]):
-        W += numpy.outer(model_zerocentered[:, column], data_zerocentered[:, column])
-    U, d, Vh = numpy.linalg.linalg.svd(W.transpose())
-    S = numpy.matrix(numpy.identity(3))
-    if (numpy.linalg.det(U) * numpy.linalg.det(Vh) < 0):
-        S[2, 2] = -1
-    rot = U * S * Vh
-    trans = data.mean(1) - rot * model.mean(1)
-
-    model_aligned = rot * model + trans
-
-    print('Rotation matrix det is ', numpy.linalg.det(rot))
-
-    alignment_error = model_aligned - data
-
-    trans_error = numpy.sqrt(numpy.sum(numpy.multiply(alignment_error, alignment_error), 0)).A[0]
-
-    return rot, trans, trans_error
-
-
-def R(motion):
-    return motion[0:3, 0:3]
-
-
-def plot_traj(ax, stamps, traj, style, color, label):
-    """
-    Plot a trajectory using matplotlib.
-
-    Input:
-    ax -- the plot
-    stamps -- time stamps (1xn)
-    traj -- trajectory (3xn)
-    style -- line style
-    color -- line color
-    label -- plot legend
-
-    """
-    stamps.sort()
-    interval = numpy.median([s - t for s, t in zip(stamps[1:], stamps[:-1])])
-    x = []
-    y = []
-    last = stamps[0]
-    for i in range(len(stamps)):
-        if stamps[i] - last < 2 * interval:
-            x.append(traj[i][0])
-            y.append(traj[i][1])
-        elif len(x) > 0:
-            ax.plot(x, y, style, color=color, label=label)
-            label = ""
-            x = []
-            y = []
-        last = stamps[i]
-    if len(x) > 0:
-        ax.plot(x, y, style, color=color, label=label)
-
-
-def angle(R):
-    return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
-
-
 def evaluate(first_file, second_file):
     first_list = associate.read_file_list(first_file)
     second_list = associate.read_file_list(second_file)
@@ -194,6 +113,4 @@ def evaluate(first_file, second_file):
     print("absolute_rotational_error.min " + str(numpy.min(rot_errors)) + "  rad")
     print("absolute_rotational_error.max " + str(numpy.max(rot_errors)) + " rad")
 
-    return numpy.sqrt(
-        numpy.dot(trans_error, trans_error) / len(trans_error)), numpy.sqrt(
-        numpy.dot(rot_errors, rot_errors) / len(rot_errors))
+    return numpy.mean(trans_error), numpy.mean(rot_errors)
