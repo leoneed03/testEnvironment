@@ -77,7 +77,8 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
         command_to_execute = '(' + process_name_and_args_example + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
         full_console_log = out_poses_dir_i + '/' + console_log
 
-        command_file_name = 'trash/command.sh'
+        print(command_to_execute)
+        command_file_name = 'command.sh'
         command_file = open(command_file_name, 'w')
         command_file.write(command_to_execute)
 
@@ -97,8 +98,18 @@ if __name__ == "__main__":
     # out_poses_dir_arg_xyz = '/home/leoneed/Desktop/results/GDR/xyz2_sampled_456_8'
     # intrinsics_depth_divider_string_arg_xyz = '520.9 521.0 325.1 249.7 5000.0'
     # benchmark(dataset_root_arg_xyz, out_poses_dir_arg_xyz, intrinsics_depth_divider_string_arg_xyz)
+    #
+    # dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/fr3_office_sampled_498_5'
+    # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_new'
+    # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
+    # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
 
-    dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/fr3_office_sampled_498_5'
-    out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_sampled'
+    # dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/fr3_office_sampled_829_3'
+    # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_sampled_829_3'
+    # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
+    # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
+
+    dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/rgbd_dataset_freiburg3_long_office_household'
+    out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_full'
     intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
