@@ -79,7 +79,7 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
         full_console_log = out_poses_dir_i + '/' + console_log
 
         print(command_to_execute)
-        command_file_name = 'command.sh'
+        command_file_name = 'command_2.sh'
         command_file = open(command_file_name, 'w')
         command_file.write(command_to_execute)
 
