@@ -57,8 +57,8 @@ import os
 def get_bash_output_and_error(bash_command_file, path_to_console_log_file):
     bash_command = 'sh ' + bash_command_file
     # exec(open(bash_command_file).read())
-    with open(path_to_console_log_file, 'w') as f:
-        subprocess.call(bash_command.split())
+    # with open(path_to_console_log_file, 'w') as f:
+    subprocess.call(bash_command.split())
 
 
 def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
