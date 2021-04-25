@@ -73,7 +73,7 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
 
     for i in range(iterations):
         out_poses_dir_i = out_poses_dir + '/' + str(i)
-        os.makedirs(out_poses_dir_i)
+        # os.makedirs(out_poses_dir_i)
         process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files + ' ' + gpu_device
 
         print()
