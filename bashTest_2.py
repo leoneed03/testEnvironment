@@ -104,7 +104,6 @@ if __name__ == "__main__":
     # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_new'
     # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
-
     # dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/fr3_office_sampled_829_3'
     # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_sampled_829_3'
     # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
