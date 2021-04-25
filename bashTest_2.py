@@ -75,8 +75,9 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
         out_poses_dir_i = out_poses_dir + '/' + str(i)
         # os.makedirs(out_poses_dir_i)
         process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files + ' ' + gpu_num
-        command_to_execute = '(' + process_name_and_args_example + ' >> ' + out_poses_dir_i + '/' + 'log.txt' + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
         full_console_log = out_poses_dir_i + '/' + console_log
+        command_to_execute = '(' + process_name_and_args_example + ' >> ' + full_console_log + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
+
 
         print(command_to_execute)
         command_file_name = 'command_2.sh'
