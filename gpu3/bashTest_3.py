@@ -115,6 +115,6 @@ if __name__ == "__main__":
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
 
     dataset_root_arg_office = '~/hdd_scratch/datasets/rgbd_dataset_freiburg3_long_office_household'
-    out_poses_dir_arg_office = '~/results/fr3_office_full'
+    out_poses_dir_arg_office = '~/results/NO_SUITE_SPARSE/fr3_office_full'
     intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office, '3')

@@ -78,7 +78,6 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
         full_console_log = out_poses_dir_i + '/' + console_log
         command_to_execute = '(' + process_name_and_args_example + ' >> ' + full_console_log + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
 
-
         print(command_to_execute)
         command_file_name = 'command.sh'
         command_file = open(command_file_name, 'w')
@@ -112,6 +111,6 @@ if __name__ == "__main__":
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
 
     dataset_root_arg_office = '~/hdd_scratch/datasets/rgbd_dataset_freiburg1_desk'
-    out_poses_dir_arg_office = '~/results/fr1_desk_full'
+    out_poses_dir_arg_office = '~/results/NO_SUITE_SPARSE/fr1_desk_full'
     intrinsics_depth_divider_string_arg_office = '517.3 516.5 318.6 255.3 5000.0'
     benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office, '1')
