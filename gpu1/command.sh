@@ -1,0 +1,1 @@
+(/usr/bin/time --verbose ~/projects/nonative/GDR/build-nosuite-release/reconstructorTUM ~/hdd_scratch/datasets/rgbd_dataset_freiburg1_desk ~/results/NO_SUITE_SPARSE/fr1_desk_full/5 517.3 516.5 318.6 255.3 5000.0 irls.txt ba.txt gt.txt 1 >> ~/results/NO_SUITE_SPARSE/fr1_desk_full/5/console_log.txt) 2>> ~/results/NO_SUITE_SPARSE/fr1_desk_full/5/memory.txt
