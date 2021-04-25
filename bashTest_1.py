@@ -62,6 +62,7 @@ def get_bash_output_and_error(bash_command_file, path_to_console_log_file):
 
 
 def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
+              gpu_num='0',
               out_poses_files='irls.txt ba.txt gt.txt',
               iterations=6):
     print("START")
@@ -73,8 +74,8 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
     for i in range(iterations):
         out_poses_dir_i = out_poses_dir + '/' + str(i)
         os.makedirs(out_poses_dir_i)
-        process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files
-        command_to_execute = '(' + process_name_and_args_example + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
+        process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files + ' ' + gpu_num
+        command_to_execute = '(' + process_name_and_args_example + ' >> ' + out_poses_dir_i + '/' + 'log.txt' + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
         full_console_log = out_poses_dir_i + '/' + console_log
 
         print(command_to_execute)
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
 
-    dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/rgbd_dataset_freiburg3_long_office_household'
-    out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_full'
-    intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
-    benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
+    dataset_root_arg_office = '~/hdd_scratch/datasets/rgbd_dataset_freiburg1_desk'
+    out_poses_dir_arg_office = '~/projects/results/fr1'
+    intrinsics_depth_divider_string_arg_office = '517.3 516.5 318.6 255.3 5000.0'
+    benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office, '1')
