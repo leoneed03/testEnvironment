@@ -1,0 +1,32 @@
+input args format: [path Dataset] [pathOutPoses] [fx] [fy] [cx] [cy] [depthDivider], optionally: [fileOutIRLS] [fileOutBA] [fileOutGT] : [GPU index]
+your args is 12
+using 2 gpu
+Running reconstruction on /home/lseniukov/hdd_scratch/datasets/rgbd_dataset_freiburg2_xyz
+poses will be printed to /home/lseniukov/results/NO_SUITE_SPARSE/fr2_xyz_full/1
+fx, fy, cx, cy: 520.9 521 325.1 249.7
+depth in pixel divider: 5000
+fileIRLS: irls.txt
+fileBA: ba.txt
+fileGT: gt.txt
+Running test on /home/lseniukov/hdd_scratch/datasets/rgbd_dataset_freiburg2_xyz
+sets are rgb, d: 3615 3615
+sizes timestamps, rgb, depth 3615 3615 3615
+start computing relative poses
+detecting on 0
+matching on 5
+perform rotation averaging
+perform rotation robust optimization
+perform translation averaging
+IRLS poses written to: /home/lseniukov/results/NO_SUITE_SPARSE/fr2_xyz_full/1/irls.txt
+perform Bundle Adjustment
+entered BA depth optimization
+min max scale: 0.8 59.2549
+started BA [depth using] ! 
+total number of points 2793461
+Medians of normalized errors are (pixels) 1.22207 && (m) 0.896638
+init Scales of normalized errors are (pixels) 1.81185 && (m) 1.32936
+normalized INFO about inliers (pixels):  [0, median, biggest] 9.46104e-05 0.884578 4.52961
+INFO about inliers (m):  [0, median, biggest] 4.43633e-07 0.777334 3.32337
+Number of inlier errors for pixels is (pixels) 2269064 almost 
+Number of inlier errors for pixels is (m) 2510616 almost 
+deviation estimation sigmas are (pixels) 1.6608 && (meters) 1.25861
