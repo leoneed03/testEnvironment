@@ -1,0 +1,22 @@
+Rotation matrix det is  0.9999999999999997
+compared_pose_pairs 2481 pairs
+alignment transformation R + t is
+[[ 1.     0.001 -0.004]
+ [-0.001  1.    -0.01 ]
+ [ 0.004  0.01   1.   ]]
+[[-0.003]
+ [-0.008]
+ [ 0.008]]
+absolute_translational_error.rmse 0.014407643708207962 m
+absolute_translational_error.mean 0.013048878428208552 m
+absolute_translational_error.median 0.01213884118767629 m
+absolute_translational_error.std 0.006107943106193602 m
+absolute_translational_error.min 0.001238746692657094 m
+absolute_translational_error.max 0.07477051673460097 m
+
+absolute_rotational_error.rmse 0.012339267663473916 rad
+absolute_rotational_error.mean 0.011292876499565846 rad
+absolute_rotational_error.median 0.010690086438550805 rad
+absolute_rotational_error.std 0.004972772550238645 rad
+absolute_rotational_error.min 0.0016372330772599115  rad
+absolute_rotational_error.max 0.046062984690592626 rad
