@@ -1,0 +1,156 @@
+
+
+
+======================================================================================
+start comparing iteration number  0
+19033.94
+<class 'str'>
+Rotation matrix det is  0.9999999999999993
+compared_pose_pairs 1824 pairs
+alignment transformation R + t is
+[[ 0.04  -0.999  0.007]
+ [-0.604 -0.029 -0.796]
+ [ 0.796  0.028 -0.605]]
+[[-1.399]
+ [ 1.188]
+ [ 0.875]]
+absolute_translational_error.rmse 0.012455558332368645 m
+absolute_translational_error.mean 0.010857486124420564 m
+absolute_translational_error.median 0.009569615311165104 m
+absolute_translational_error.std 0.006103763464376131 m
+absolute_translational_error.min 0.0005349093549857103 m
+absolute_translational_error.max 0.0288917321928744 m
+
+absolute_rotational_error.rmse 0.03720018394284511 rad
+absolute_rotational_error.mean 0.03677408219021051 rad
+absolute_rotational_error.median 0.03655563668356915 rad
+absolute_rotational_error.std 0.005614317807993551 rad
+absolute_rotational_error.min 0.01980535836158489  rad
+absolute_rotational_error.max 0.057435261732044066 rad
+iteration, ate, are:  0 0.012455558332368645 0.03720018394284511
+
+
+
+======================================================================================
+start comparing iteration number  1
+21609.52
+<class 'str'>
+Rotation matrix det is  1.0
+compared_pose_pairs 1824 pairs
+alignment transformation R + t is
+[[ 0.04  -0.999  0.007]
+ [-0.604 -0.029 -0.796]
+ [ 0.796  0.028 -0.605]]
+[[-1.398]
+ [ 1.188]
+ [ 0.875]]
+absolute_translational_error.rmse 0.012417793880906074 m
+absolute_translational_error.mean 0.010831326457268033 m
+absolute_translational_error.median 0.009585914461848276 m
+absolute_translational_error.std 0.006073217602289077 m
+absolute_translational_error.min 0.00045975618898491926 m
+absolute_translational_error.max 0.028603385372827514 m
+
+absolute_rotational_error.rmse 0.0370640631368914 rad
+absolute_rotational_error.mean 0.03664184059699117 rad
+absolute_rotational_error.median 0.036420077903671605 rad
+absolute_rotational_error.std 0.005578556612615989 rad
+absolute_rotational_error.min 0.019668175510379197  rad
+absolute_rotational_error.max 0.05718028302087018 rad
+iteration, ate, are:  1 0.012417793880906074 0.0370640631368914
+
+
+
+======================================================================================
+start comparing iteration number  2
+20894.65
+<class 'str'>
+Rotation matrix det is  1.0000000000000009
+compared_pose_pairs 1824 pairs
+alignment transformation R + t is
+[[ 0.04  -0.999  0.006]
+ [-0.604 -0.029 -0.796]
+ [ 0.796  0.028 -0.605]]
+[[-1.398]
+ [ 1.188]
+ [ 0.876]]
+absolute_translational_error.rmse 0.012545076988367538 m
+absolute_translational_error.mean 0.010923929646704364 m
+absolute_translational_error.median 0.009615908764011687 m
+absolute_translational_error.std 0.006168202146324502 m
+absolute_translational_error.min 0.0005100146034940178 m
+absolute_translational_error.max 0.029143989526308284 m
+
+absolute_rotational_error.rmse 0.03723299784460044 rad
+absolute_rotational_error.mean 0.03680720737399438 rad
+absolute_rotational_error.median 0.036561127271358185 rad
+absolute_rotational_error.std 0.005614767477268782 rad
+absolute_rotational_error.min 0.01985719944336319  rad
+absolute_rotational_error.max 0.057513214382112675 rad
+iteration, ate, are:  2 0.012545076988367538 0.03723299784460044
+
+
+
+======================================================================================
+start comparing iteration number  3
+17790.36
+<class 'str'>
+Rotation matrix det is  1.0
+compared_pose_pairs 1824 pairs
+alignment transformation R + t is
+[[ 0.04  -0.999  0.006]
+ [-0.604 -0.029 -0.796]
+ [ 0.796  0.028 -0.605]]
+[[-1.398]
+ [ 1.188]
+ [ 0.876]]
+absolute_translational_error.rmse 0.012547455449935024 m
+absolute_translational_error.mean 0.010924653598656143 m
+absolute_translational_error.median 0.009611192503443122 m
+absolute_translational_error.std 0.0061717568015495815 m
+absolute_translational_error.min 0.0006366762264938576 m
+absolute_translational_error.max 0.0292259047803526 m
+
+absolute_rotational_error.rmse 0.03708247453391362 rad
+absolute_rotational_error.mean 0.03665797813060663 rad
+absolute_rotational_error.median 0.036423100419598065 rad
+absolute_rotational_error.std 0.005594868804030898 rad
+absolute_rotational_error.min 0.01964164328929247  rad
+absolute_rotational_error.max 0.05725597718055888 rad
+iteration, ate, are:  3 0.012547455449935024 0.03708247453391362
+
+
+
+======================================================================================
+start comparing iteration number  4
+16643.43
+<class 'str'>
+Rotation matrix det is  1.0
+compared_pose_pairs 1824 pairs
+alignment transformation R + t is
+[[ 0.04  -0.999  0.006]
+ [-0.604 -0.029 -0.796]
+ [ 0.796  0.028 -0.605]]
+[[-1.398]
+ [ 1.189]
+ [ 0.875]]
+absolute_translational_error.rmse 0.012495471982087213 m
+absolute_translational_error.mean 0.01090193584762583 m
+absolute_translational_error.median 0.009655494170281085 m
+absolute_translational_error.std 0.006106112906700742 m
+absolute_translational_error.min 0.00044508896117379475 m
+absolute_translational_error.max 0.029087755730544024 m
+
+absolute_rotational_error.rmse 0.037074662128618596 rad
+absolute_rotational_error.mean 0.036649959711181894 rad
+absolute_rotational_error.median 0.036405614415310844 rad
+absolute_rotational_error.std 0.0055956255342875065 rad
+absolute_rotational_error.min 0.01959118021674245  rad
+absolute_rotational_error.max 0.057339506839279394 rad
+iteration, ate, are:  4 0.012495471982087213 0.037074662128618596
+[[0.012417793880906074, 1], [0.012455558332368645, 0], [0.012495471982087213, 4], [0.012545076988367538, 2], [0.012547455449935024, 3]]
+median iteration is  [0.012495471982087213, 4]
+time mean  19685.311999999998  s
+time std  1879.586115828695  s
+memory mean  42592.8078125  Mb
+memory std  11.78654333380935  Mb
