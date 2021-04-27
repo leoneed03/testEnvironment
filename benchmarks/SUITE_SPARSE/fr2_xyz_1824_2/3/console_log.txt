@@ -1,0 +1,16 @@
+input args format: [path Dataset] [pathOutPoses] [fx] [fy] [cx] [cy] [depthDivider], optionally: [fileOutIRLS] [fileOutBA] [fileOutGT] : [GPU index]
+your args is 12
+using 0 gpu
+Running reconstruction on /home/lseniukov/hdd_scratch/datasets/fr2_xyz_1824_2
+poses will be printed to /home/lseniukov/results/SUITE_SPARSE/fr2_xyz_1824_2/3
+fx, fy, cx, cy: 520.9 521 325.1 249.7
+depth in pixel divider: 5000
+fileIRLS: irls.txt
+fileBA: ba.txt
+fileGT: gt.txt
+Running test on /home/lseniukov/hdd_scratch/datasets/fr2_xyz_1824_2
+sets are rgb, d: 1824 1824
+sizes timestamps, rgb, depth 1824 1824 1824
+start computing relative poses
+detecting on 0
+matching on 3
