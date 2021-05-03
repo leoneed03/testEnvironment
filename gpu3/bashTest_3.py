@@ -64,7 +64,7 @@ def get_bash_output_and_error(bash_command_file, path_to_console_log_file):
 def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
               gpu_device='3',
               out_poses_files='irls.txt ba.txt gt.txt',
-              iterations=6):
+              iterations=8):
     print("START")
     process_name_example = '/usr/bin/time --verbose ~/projects/concurrentGDR/GDR/build-release/reconstructorTUM'  # args_parsed.process_name
 
