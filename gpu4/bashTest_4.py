@@ -71,6 +71,7 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
     usr_bin_time_log_file = 'memory.txt'
     console_log = 'console_log.txt'
 
+    print("ITERAIONS ARE STARTING NOW: ")
     for i in range(iterations):
         out_poses_dir_i = out_poses_dir + '/' + str(i)
         # os.makedirs(out_poses_dir_i)
