@@ -62,9 +62,9 @@ def get_bash_output_and_error(bash_command_file, path_to_console_log_file):
 
 
 def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
-              gpu_device='3',
+              gpu_num='2',
               out_poses_files='irls.txt ba.txt gt.txt',
-              iterations=6):
+              iterations=7):
     print("START")
     process_name_example = '/usr/bin/time --verbose ~/projects/concurrentGDR/GDR/build-release/reconstructorTUM'  # args_parsed.process_name
 
@@ -74,16 +74,13 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
     for i in range(iterations):
         out_poses_dir_i = out_poses_dir + '/' + str(i)
         # os.makedirs(out_poses_dir_i)
-        process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files + ' ' + gpu_device
-
-        print()
-        print('PROGRESS NAME ARGS: ', process_name_and_args_example)
+        process_name_and_args_example = process_name_example + ' ' + dataset_root + ' ' + out_poses_dir_i + ' ' + intrinsics_depth_divider_string + ' ' + out_poses_files + ' ' + gpu_num
         full_console_log = out_poses_dir_i + '/' + console_log
         command_to_execute = '(' + process_name_and_args_example + ' >> ' + full_console_log + ') 2>> ' + out_poses_dir_i + '/' + usr_bin_time_log_file
 
 
         print(command_to_execute)
-        command_file_name = 'command_3.sh'
+        command_file_name = 'command_2.sh'
         command_file = open(command_file_name, 'w')
         command_file.write(command_to_execute)
 
@@ -108,13 +105,12 @@ if __name__ == "__main__":
     # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_new'
     # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
-
     # dataset_root_arg_office = '/home/leoneed/Desktop/datasets/freiburg/fr3_office_sampled_829_3'
     # out_poses_dir_arg_office = '/home/leoneed/Desktop/results/GDR/office3_sampled_829_3'
     # intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
     # benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office)
 
-    dataset_root_arg_office = '~/hdd_scratch/datasets/rgbd_dataset_freiburg3_long_office_household'
-    out_poses_dir_arg_office = '~/results/SUITE_SPARSE/fr3_office_full'
-    intrinsics_depth_divider_string_arg_office = '535.4 539.2 320.1 247.6 5000.0'
-    benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office, '3')
+    dataset_root_arg_office = '~/hdd_scratch/datasets/fr3_829_3'
+    out_poses_dir_arg_office = '~/results/SUITE_SPARSE/fr2_xyz_829'
+    intrinsics_depth_divider_string_arg_office = '520.9 521.0 325.1 249.7 5000.0'
+    benchmark(dataset_root_arg_office, out_poses_dir_arg_office, intrinsics_depth_divider_string_arg_office, '2')
