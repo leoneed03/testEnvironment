@@ -1,0 +1,146 @@
+input args format: [path Dataset] [pathOutPoses] [fx] [fy] [cx] [cy] [depthDivider], optionally: [fileOutIRLS] [fileOutBA] [fileOutGT] : [GPU index]
+your args is 12
+using 1 gpu
+Running reconstruction on /home/lseniukov/hdd_scratch/datasets/rgbd_dataset_freiburg1_desk
+poses will be printed to /home/lseniukov/results/SUITE_SPARSE/fr1_desk_full/1
+fx, fy, cx, cy: 517.3 516.5 318.6 255.3
+depth in pixel divider: 5000
+fileIRLS: irls.txt
+fileBA: ba.txt
+fileGT: gt.txt
+Running test on /home/lseniukov/hdd_scratch/datasets/rgbd_dataset_freiburg1_desk
+sets are rgb, d: 573 573
+sizes timestamps, rgb, depth 573 573 573
+start computing relative poses
+detecting on 0
+matching on 4
+perform rotation averaging
+perform rotation robust optimization
+perform translation averaging
+IRLS poses written to: /home/lseniukov/results/SUITE_SPARSE/fr1_desk_full/1/irls.txt
+perform Bundle Adjustment
+entered BA depth optimization
+min max scale: 0.800013 58.461
+started BA [depth using] ! 
+total number of points 521335
+Medians of normalized errors are (pixels) 1.1925 && (m) 1.11558
+init Scales of normalized errors are (pixels) 1.768 && (m) 1.65395
+normalized INFO about inliers (pixels):  [0, median, biggest] 0.000489269 1.06785 4.41998
+INFO about inliers (m):  [0, median, biggest] 3.42479e-06 0.974224 4.1348
+Number of inlier errors for pixels is (pixels) 474038 almost 
+Number of inlier errors for pixels is (m) 472307 almost 
+deviation estimation sigmas are (pixels) 1.67416 && (meters) 1.5921
+iter      cost      cost_change  |gradient|   |step|    tr_ratio  tr_radius  ls_iter  iter_time  total_time
+   0  1.039427e+06    0.00e+00    4.02e+05   0.00e+00   0.00e+00  1.00e+04        0    3.90e-01    2.82e+00
+   1  8.846740e+05    1.55e+05    1.45e+05   1.31e+00   1.53e+00  3.00e+04        1    8.37e+00    1.12e+01
+   2  8.593828e+05    2.53e+04    8.35e+04   7.54e-01   1.57e+00  9.00e+04        1    2.04e+00    1.32e+01
+   3  8.511141e+05    8.27e+03    4.36e+04   7.65e-01   1.67e+00  2.70e+05        1    1.89e+00    1.51e+01
+   4  8.474519e+05    3.66e+03    2.22e+04   6.69e-01   1.75e+00  8.10e+05        1    2.03e+00    1.71e+01
+   5  8.453656e+05    2.09e+03    1.74e+04   4.27e-01   1.84e+00  2.43e+06        1    1.89e+00    1.90e+01
+   6  8.439573e+05    1.41e+03    1.70e+04   2.39e-01   1.90e+00  7.29e+06        1    2.03e+00    2.11e+01
+   7  8.429721e+05    9.85e+02    1.94e+04   1.37e-01   1.93e+00  2.19e+07        1    1.94e+00    2.30e+01
+   8  8.422582e+05    7.14e+02    1.89e+04   8.36e-02   1.93e+00  6.56e+07        1    1.97e+00    2.50e+01
+   9  8.417467e+05    5.11e+02    1.56e+04   5.52e-02   1.90e+00  1.97e+08        1    1.96e+00    2.69e+01
+  10  8.413911e+05    3.56e+02    1.03e+04   3.84e-02   1.89e+00  5.90e+08        1    1.95e+00    2.89e+01
+  11  8.411286e+05    2.63e+02    1.01e+04   2.84e-02   1.93e+00  1.77e+09        1    1.96e+00    3.08e+01
+  12  8.409289e+05    2.00e+02    1.09e+04   2.24e-02   1.94e+00  5.31e+09        1    2.02e+00    3.29e+01
+  13  8.407876e+05    1.41e+02    8.51e+03   1.81e-02   1.89e+00  1.59e+10        1    1.95e+00    3.48e+01
+  14  8.406916e+05    9.60e+01    5.22e+03   1.47e-02   1.87e+00  4.78e+10        1    2.02e+00    3.68e+01
+  15  8.406225e+05    6.92e+01    4.37e+03   1.20e-02   1.90e+00  1.43e+11        1    2.02e+00    3.88e+01
+  16  8.405729e+05    4.95e+01    4.13e+03   1.02e-02   1.87e+00  4.30e+11        1    1.99e+00    4.08e+01
+  17  8.405380e+05    3.49e+01    3.74e+03   8.68e-03   1.88e+00  1.29e+12        1    2.00e+00    4.28e+01
+  18  8.405108e+05    2.72e+01    3.28e+03   7.37e-03   1.93e+00  3.87e+12        1    1.95e+00    4.48e+01
+  19  8.404872e+05    2.36e+01    3.28e+03   6.38e-03   1.97e+00  1.16e+13        1    2.00e+00    4.68e+01
+  20  8.404650e+05    2.21e+01    3.83e+03   5.64e-03   2.01e+00  3.49e+13        1    1.98e+00    4.88e+01
+  21  8.404441e+05    2.09e+01    4.44e+03   5.00e-03   2.00e+00  1.05e+14        1    2.01e+00    5.08e+01
+  22  8.404274e+05    1.67e+01    2.90e+03   4.36e-03   1.88e+00  3.14e+14        1    1.96e+00    5.27e+01
+  23  8.404158e+05    1.17e+01    2.75e+03   3.76e-03   1.88e+00  9.41e+14        1    1.97e+00    5.47e+01
+  24  8.404062e+05    9.51e+00    2.56e+03   3.33e-03   1.94e+00  2.82e+15        1    2.05e+00    5.68e+01
+  25  8.403978e+05    8.49e+00    2.25e+03   3.02e-03   1.96e+00  8.47e+15        1    1.95e+00    5.87e+01
+  26  8.403900e+05    7.73e+00    2.28e+03   2.78e-03   1.97e+00  1.00e+16        1    2.00e+00    6.07e+01
+  27  8.403829e+05    7.15e+00    2.65e+03   2.60e-03   1.98e+00  1.00e+16        1    1.97e+00    6.27e+01
+  28  8.403761e+05    6.80e+00    3.09e+03   2.49e-03   1.99e+00  1.00e+16        1    1.91e+00    6.46e+01
+  29  8.403693e+05    6.77e+00    3.63e+03   2.50e-03   2.02e+00  1.00e+16        1    1.95e+00    6.65e+01
+  30  8.403621e+05    7.22e+00    4.27e+03   2.73e-03   2.06e+00  1.00e+16        1    2.02e+00    6.86e+01
+  31  8.403538e+05    8.28e+00    5.00e+03   3.17e-03   2.10e+00  1.00e+16        1    1.91e+00    7.05e+01
+  32  8.403443e+05    9.52e+00    5.78e+03   3.37e-03   2.08e+00  1.00e+16        1    1.92e+00    7.24e+01
+  33  8.403341e+05    1.02e+01    6.46e+03   2.90e-03   2.05e+00  1.00e+16        1    1.90e+00    7.43e+01
+  34  8.403236e+05    1.05e+01    6.86e+03   2.42e-03   2.03e+00  1.00e+16        1    2.15e+00    7.64e+01
+  35  8.403135e+05    1.01e+01    6.87e+03   2.09e-03   1.99e+00  1.00e+16        1    1.92e+00    7.84e+01
+  36  8.403046e+05    8.90e+00    6.45e+03   1.84e-03   1.95e+00  1.00e+16        1    1.86e+00    8.02e+01
+  37  8.402973e+05    7.31e+00    5.62e+03   1.67e-03   1.92e+00  1.00e+16        1    1.85e+00    8.21e+01
+  38  8.402915e+05    5.77e+00    4.48e+03   1.56e-03   1.90e+00  1.00e+16        1    1.90e+00    8.40e+01
+  39  8.402870e+05    4.54e+00    3.28e+03   1.48e-03   1.90e+00  1.00e+16        1    1.93e+00    8.59e+01
+  40  8.402833e+05    3.69e+00    2.24e+03   1.42e-03   1.92e+00  1.00e+16        1    2.03e+00    8.79e+01
+  41  8.402801e+05    3.13e+00    2.06e+03   1.36e-03   1.94e+00  1.00e+16        1    2.02e+00    8.99e+01
+  42  8.402773e+05    2.81e+00    2.31e+03   1.33e-03   1.98e+00  1.00e+16        1    1.88e+00    9.18e+01
+  43  8.402747e+05    2.68e+00    2.50e+03   1.35e-03   2.01e+00  1.00e+16        1    1.90e+00    9.37e+01
+  44  8.402720e+05    2.66e+00    2.57e+03   1.43e-03   2.02e+00  1.00e+16        1    1.87e+00    9.56e+01
+  45  8.402693e+05    2.65e+00    2.45e+03   1.58e-03   2.02e+00  1.00e+16        1    1.91e+00    9.75e+01
+  46  8.402667e+05    2.60e+00    2.14e+03   1.74e-03   2.01e+00  1.00e+16        1    1.89e+00    9.94e+01
+  47  8.402643e+05    2.46e+00    1.70e+03   1.84e-03   2.00e+00  1.00e+16        1    1.88e+00    1.01e+02
+  48  8.402621e+05    2.18e+00    1.24e+03   1.77e-03   1.95e+00  1.00e+16        1    1.88e+00    1.03e+02
+  49  8.402603e+05    1.76e+00    1.04e+03   1.49e-03   1.91e+00  1.00e+16        1    1.95e+00    1.05e+02
+  50  8.402589e+05    1.42e+00    1.15e+03   1.15e-03   1.94e+00  1.00e+16        1    1.92e+00    1.07e+02
+done ceres BA
+
+Solver Summary (v 2.0.0-eigen-(3.3.9)-lapack-suitesparse-(5.8.1)-cxsparse-(3.2.0)-eigensparse-no_openmp)
+
+                                     Original                  Reduced
+Parameter blocks                        57360                    57358
+Parameters                             172650                   172643
+Effective parameters                   172080                   172074
+Residual blocks                       1042670                  1042670
+Residuals                             1564005                  1564005
+
+Minimizer                        TRUST_REGION
+
+Sparse linear algebra library    SUITE_SPARSE
+Trust region strategy     LEVENBERG_MARQUARDT
+
+                                        Given                     Used
+Linear solver                    SPARSE_SCHUR             SPARSE_SCHUR
+Threads                                   112                      112
+Linear solver ordering              AUTOMATIC               56220,1138
+Schur structure                         d,3,3                    d,d,d
+
+Cost:
+Initial                          1.039427e+06
+Final                            8.402589e+05
+Change                           1.991683e+05
+
+Minimizer iterations                       51
+Successful steps                           51
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         2.427146
+
+  Residual only evaluation           0.982522 (50)
+  Jacobian & residual evaluation    12.252864 (51)
+  Linear solver                     84.565800 (50)
+Minimizer                          104.607203
+
+Postprocessor                        0.051189
+Total                              107.085540
+
+Termination:                   NO_CONVERGENCE (Maximum number of iterations reached. Number of iterations: 50.)
+
+Is BA USABLE?: 1
+Threads used 112
+-----------------------------------------------------
+medians [m] L2 3D errors before: 0.00726324 & 	after: 0.00592217
+-----------------------------------------------------
+medians [pixels] L2 reproj before: 2.16305 & 	after: 1.3682
+medians [m] depth before: 0.00396674 & 	after : 0.00334347
+min max scale: 0.800013 58.461
+=============================median errors information!============================
+medians BEFORE (x, y, depth), quantiles (x, y, depth): 1.37502, 1.08207, 0.00396674, 5.30011, 3.97419, 0.0140097
+medians AFTER (x, y, depth), quantiles (x, y, depth): 0.918321, 0.631677, 0.00334347, 4.81583, 3.13442, 0.014454
+BA poses written to: /home/lseniukov/results/SUITE_SPARSE/fr1_desk_full/1/ba.txt
+found timestamp matches: 569
+found timestamp 1305031467.5092001 while looking for 1305031467.4843571
+found timestamp 1305031467.5092001 while looking for 1305031467.4843571
+found timestamp 1305031467.5092001 while looking for 1305031467.4843571
+found timestamp 1305031467.5092001 while looking for 1305031467.4843571
+Trajectory estimated for: 570/573 poses

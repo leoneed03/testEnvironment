@@ -1,0 +1,222 @@
+input args format: [path Dataset] [pathOutPoses] [fx] [fy] [cx] [cy] [depthDivider], optionally: [fileOutIRLS] [fileOutBA] [fileOutGT] : [GPU index]
+your args is 12
+using 2 gpu
+Running reconstruction on /home/lseniukov/hdd_scratch/datasets/fr2_xyz_912
+poses will be printed to /home/lseniukov/results/SUITE_SPARSE/fr2_xyz_912/4
+fx, fy, cx, cy: 520.9 521 325.1 249.7
+depth in pixel divider: 5000
+fileIRLS: irls.txt
+fileBA: ba.txt
+fileGT: gt.txt
+Running test on /home/lseniukov/hdd_scratch/datasets/fr2_xyz_912
+sets are rgb, d: 912 912
+sizes timestamps, rgb, depth 912 912 912
+start computing relative poses
+detecting on 2
+matching on 2
+finish matching
+    TIMER INFO:
+          SIFT detect: 16.939
+          SIFT match: 370.686
+          relative poses umayama + ICP: 3986.76
+
+perform rotation averaging
+perform rotation robust optimization
+perform translation averaging
+IRLS poses written to: /home/lseniukov/results/SUITE_SPARSE/fr2_xyz_912/4/irls.txt
+perform Bundle Adjustment
+entered BA depth optimization
+min max scale: 0.8 59.2549
+started BA [depth using] ! 
+total number of points 814766
+Medians of normalized errors are (pixels) 1.18842 && (m) 0.857846
+init Scales of normalized errors are (pixels) 1.76196 && (m) 1.27184
+normalized INFO about inliers (pixels):  [0, median, biggest] 0 0.970051 4.40485
+INFO about inliers (m):  [0, median, biggest] 0 0.760432 3.17952
+Number of inlier errors for pixels is (pixels) 690921 almost 
+Number of inlier errors for pixels is (m) 742565 almost 
+deviation estimation sigmas are (pixels) 1.53682 && (meters) 1.19027
+iter      cost      cost_change  |gradient|   |step|    tr_ratio  tr_radius  ls_iter  iter_time  total_time
+   0  1.430925e+06    0.00e+00    1.17e+05   0.00e+00   0.00e+00  1.00e+04        0    3.79e-01    4.13e+00
+   1  1.301867e+06    1.29e+05    6.67e+04   1.09e+00   1.48e+00  3.00e+04        1    5.87e+01    6.28e+01
+   2  1.277342e+06    2.45e+04    4.14e+04   4.75e-01   1.55e+00  9.00e+04        1    8.50e+00    7.13e+01
+   3  1.269300e+06    8.04e+03    3.83e+04   2.76e-01   1.64e+00  2.70e+05        1    8.48e+00    7.98e+01
+   4  1.265813e+06    3.49e+03    2.78e+04   1.66e-01   1.71e+00  8.10e+05        1    8.18e+00    8.80e+01
+   5  1.263969e+06    1.84e+03    2.66e+04   9.56e-02   1.77e+00  2.43e+06        1    8.05e+00    9.60e+01
+   6  1.262818e+06    1.15e+03    2.23e+04   6.08e-02   1.84e+00  7.29e+06        1    1.25e+01    1.09e+02
+   7  1.261988e+06    8.30e+02    2.13e+04   4.64e-02   1.89e+00  2.19e+07        1    8.05e+00    1.17e+02
+   8  1.261348e+06    6.40e+02    2.10e+04   3.95e-02   1.90e+00  6.56e+07        1    8.12e+00    1.25e+02
+   9  1.260868e+06    4.80e+02    1.82e+04   3.26e-02   1.90e+00  1.97e+08        1    8.11e+00    1.33e+02
+  10  1.260501e+06    3.67e+02    1.51e+04   2.63e-02   1.91e+00  5.90e+08        1    8.13e+00    1.41e+02
+  11  1.260202e+06    2.99e+02    1.49e+04   2.18e-02   1.93e+00  1.77e+09        1    8.22e+00    1.49e+02
+  12  1.259947e+06    2.54e+02    1.67e+04   1.86e-02   1.95e+00  5.31e+09        1    9.22e+00    1.58e+02
+  13  1.259728e+06    2.20e+02    1.83e+04   1.60e-02   1.95e+00  1.59e+10        1    1.25e+01    1.71e+02
+  14  1.259539e+06    1.88e+02    1.90e+04   1.39e-02   1.94e+00  4.78e+10        1    8.11e+00    1.79e+02
+  15  1.259374e+06    1.65e+02    1.80e+04   1.21e-02   1.96e+00  1.43e+11        1    8.42e+00    1.87e+02
+  16  1.259226e+06    1.49e+02    1.52e+04   1.07e-02   1.97e+00  4.30e+11        1    8.21e+00    1.96e+02
+  17  1.259092e+06    1.34e+02    1.22e+04   9.98e-03   1.99e+00  1.29e+12        1    8.52e+00    2.04e+02
+  18  1.258971e+06    1.21e+02    1.17e+04   9.08e-03   1.97e+00  3.87e+12        1    8.22e+00    2.12e+02
+  19  1.258866e+06    1.05e+02    1.15e+04   7.77e-03   1.96e+00  1.16e+13        1    1.24e+01    2.25e+02
+  20  1.258775e+06    9.06e+01    1.06e+04   7.09e-03   1.94e+00  3.49e+13        1    8.19e+00    2.33e+02
+  21  1.258696e+06    7.90e+01    9.63e+03   6.84e-03   1.96e+00  1.05e+14        1    8.28e+00    2.41e+02
+  22  1.258624e+06    7.28e+01    8.66e+03   6.72e-03   1.98e+00  3.14e+14        1    8.17e+00    2.49e+02
+  23  1.258555e+06    6.86e+01    7.59e+03   6.38e-03   1.98e+00  9.41e+14        1    8.12e+00    2.58e+02
+  24  1.258491e+06    6.44e+01    8.19e+03   5.92e-03   1.99e+00  2.82e+15        1    8.75e+00    2.66e+02
+  25  1.258426e+06    6.48e+01    1.01e+04   5.74e-03   2.04e+00  8.47e+15        1    1.13e+01    2.78e+02
+  26  1.258358e+06    6.81e+01    1.24e+04   5.68e-03   2.04e+00  1.00e+16        1    1.07e+01    2.88e+02
+  27  1.258286e+06    7.20e+01    1.44e+04   5.45e-03   2.06e+00  1.00e+16        1    8.59e+00    2.97e+02
+  28  1.258215e+06    7.01e+01    1.42e+04   5.09e-03   2.03e+00  1.00e+16        1    8.51e+00    3.05e+02
+  29  1.258147e+06    6.89e+01    1.25e+04   5.04e-03   2.05e+00  1.00e+16        1    8.48e+00    3.14e+02
+  30  1.258076e+06    7.02e+01    1.25e+04   5.07e-03   2.04e+00  1.00e+16        1    8.57e+00    3.22e+02
+  31  1.258008e+06    6.80e+01    1.31e+04   5.06e-03   2.01e+00  1.00e+16        1    8.53e+00    3.31e+02
+  32  1.257949e+06    5.90e+01    1.15e+04   5.39e-03   1.96e+00  1.00e+16        1    1.33e+01    3.44e+02
+  33  1.257902e+06    4.70e+01    8.91e+03   5.62e-03   1.90e+00  1.00e+16        1    8.79e+00    3.53e+02
+  34  1.257872e+06    3.07e+01    6.30e+03   4.51e-03   1.83e+00  1.00e+16        1    8.65e+00    3.62e+02
+  35  1.257851e+06    2.08e+01    4.21e+03   3.96e-03   1.85e+00  1.00e+16        1    8.42e+00    3.70e+02
+  36  1.257836e+06    1.47e+01    3.75e+03   3.62e-03   1.86e+00  1.00e+16        1    8.41e+00    3.79e+02
+  37  1.257825e+06    1.09e+01    3.51e+03   3.40e-03   1.88e+00  1.00e+16        1    8.39e+00    3.87e+02
+  38  1.257817e+06    8.15e+00    3.26e+03   3.08e-03   1.87e+00  1.00e+16        1    1.26e+01    4.00e+02
+  39  1.257811e+06    5.89e+00    3.01e+03   2.45e-03   1.86e+00  1.00e+16        1    8.34e+00    4.08e+02
+  40  1.257807e+06    4.43e+00    2.76e+03   1.98e-03   1.88e+00  1.00e+16        1    8.51e+00    4.16e+02
+  41  1.257803e+06    3.53e+00    2.51e+03   1.66e-03   1.91e+00  1.00e+16        1    1.25e+01    4.29e+02
+  42  1.257800e+06    2.95e+00    2.27e+03   1.46e-03   1.93e+00  1.00e+16        1    2.02e+01    4.49e+02
+  43  1.257798e+06    2.58e+00    2.04e+03   1.33e-03   1.95e+00  1.00e+16        1    1.89e+01    4.68e+02
+  44  1.257795e+06    2.35e+00    1.84e+03   1.27e-03   1.96e+00  1.00e+16        1    2.07e+01    4.89e+02
+  45  1.257793e+06    2.21e+00    1.82e+03   1.23e-03   1.98e+00  1.00e+16        1    2.38e+01    5.12e+02
+  46  1.257791e+06    2.13e+00    1.81e+03   1.20e-03   1.99e+00  1.00e+16        1    1.97e+01    5.32e+02
+  47  1.257789e+06    2.11e+00    1.88e+03   1.15e-03   2.00e+00  1.00e+16        1    1.94e+01    5.52e+02
+  48  1.257787e+06    2.16e+00    2.07e+03   1.11e-03   2.02e+00  1.00e+16        1    1.95e+01    5.71e+02
+  49  1.257785e+06    2.31e+00    2.31e+03   1.08e-03   2.04e+00  1.00e+16        1    1.97e+01    5.91e+02
+  50  1.257782e+06    2.59e+00    2.59e+03   1.05e-03   2.07e+00  1.00e+16        1    1.98e+01    6.11e+02
+done ceres BA
+
+Solver Summary (v 2.0.0-eigen-(3.3.9)-lapack-suitesparse-(5.8.1)-cxsparse-(3.2.0)-eigensparse-no_openmp)
+
+                                     Original                  Reduced
+Parameter blocks                        34267                    34265
+Parameters                             103713                   103706
+Effective parameters                   102801                   102795
+Residual blocks                       1629532                  1629532
+Residuals                             2444298                  2444298
+
+Minimizer                        TRUST_REGION
+
+Sparse linear algebra library    SUITE_SPARSE
+Trust region strategy     LEVENBERG_MARQUARDT
+
+                                        Given                     Used
+Linear solver                    SPARSE_SCHUR             SPARSE_SCHUR
+Threads                                   112                      112
+Linear solver ordering              AUTOMATIC               32443,1822
+Schur structure                         d,3,3                    d,d,d
+
+Cost:
+Initial                          1.430925e+06
+Final                            1.257782e+06
+Change                           1.731435e+05
+
+Minimizer iterations                       51
+Successful steps                           51
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         3.750582
+
+  Residual only evaluation           3.422138 (50)
+  Jacobian & residual evaluation    14.820407 (51)
+  Linear solver                    574.086992 (50)
+Minimizer                          606.878357
+
+Postprocessor                        0.124425
+Total                              610.753365
+
+Termination:                   NO_CONVERGENCE (Maximum number of iterations reached. Number of iterations: 50.)
+
+Is BA USABLE?: 1
+Threads used 112
+-----------------------------------------------------
+medians [m] L2 3D errors before: 0.00986938 & 	after: 0.00948175
+-----------------------------------------------------
+medians [pixels] L2 reproj before: 1.83526 & 	after: 1.2031
+medians [m] depth before: 0.00596621 & 	after : 0.00596999
+min max scale: 0.8 59.2549
+=============================median errors information!============================
+medians BEFORE (x, y, depth), quantiles (x, y, depth): 1.16663, 0.904434, 0.00596621, 6.20774, 4.51143, 0.0233295
+medians AFTER (x, y, depth), quantiles (x, y, depth): 0.781631, 0.560115, 0.00596999, 5.4001, 4.01535, 0.0248493
+    TIMER INFO:
+          Rotation Averaging: 11.7436
+          Robust Rotation Optimization: 1.98434
+          Translation Averaging: 0.652582
+          Bundle Adjustment: 615.491
+
+BA poses written to: /home/lseniukov/results/SUITE_SPARSE/fr2_xyz_912/4/ba.txt
+found timestamp matches: 912
+========================BA report[Umeyama ALIGNED]:=========================
+absolute_rotation_error.rmse   0.0377152 
+absolute_rotation_error.mean   0.037274 
+absolute_rotation_error.median 0.0368988 
+absolute_rotation_error.std    0.00575212 
+absolute_rotation_error.min    0.022102 
+absolute_rotation_error.max    0.058471 
+------------------------------------------------------------
+absolute_translational_error.rmse   0.0475107 m
+absolute_translational_error.mean   0.047198 m
+absolute_translational_error.median 0.047053 m
+absolute_translational_error.std    0.00544226 m
+absolute_translational_error.min    0.0374607 m
+absolute_translational_error.max    0.0629561 m
+
+Compared with groundtruth: 912/912
+------------------------------------------------------------------------------------
+========================BA report[Fixed Pose ALIGNED]:=========================
+absolute_rotation_error.rmse   0.0103539 
+absolute_rotation_error.mean   0.00940199 
+absolute_rotation_error.median 0.00848021 
+absolute_rotation_error.std    0.00433663 
+absolute_rotation_error.min    0 
+absolute_rotation_error.max    0.0229907 
+------------------------------------------------------------
+absolute_translational_error.rmse   0.0209688 m
+absolute_translational_error.mean   0.0189814 m
+absolute_translational_error.median 0.0174248 m
+absolute_translational_error.std    0.00891059 m
+absolute_translational_error.min    0 m
+absolute_translational_error.max    0.0385929 m
+
+Compared with groundtruth: 912/912
+
+
+========================IRLS report [Umeyama Aligned]:=========================
+absolute_rotation_error.rmse   0.022771 
+absolute_rotation_error.mean   0.0216454 
+absolute_rotation_error.median 0.0209408 
+absolute_rotation_error.std    0.00707079 
+absolute_rotation_error.min    0.00593622 
+absolute_rotation_error.max    0.0462124 
+------------------------------------------------------------
+absolute_translational_error.rmse   0.0265533 m
+absolute_translational_error.mean   0.0255433 m
+absolute_translational_error.median 0.024816 m
+absolute_translational_error.std    0.00725359 m
+absolute_translational_error.min    0.00779388 m
+absolute_translational_error.max    0.0501386 m
+
+Compared with groundtruth: 912/912
+------------------------------------------------------------------------------------
+========================IRLS report [Fixed Pose Aligned]:=========================
+absolute_rotation_error.rmse   0.0142569 
+absolute_rotation_error.mean   0.0125553 
+absolute_rotation_error.median 0.0113871 
+absolute_rotation_error.std    0.00675443 
+absolute_rotation_error.min    0 
+absolute_rotation_error.max    0.0370262 
+------------------------------------------------------------
+absolute_translational_error.rmse   0.0248624 m
+absolute_translational_error.mean   0.0217138 m
+absolute_translational_error.median 0.0192668 m
+absolute_translational_error.std    0.0121099 m
+absolute_translational_error.min    0 m
+absolute_translational_error.max    0.0628436 m
+
+Compared with groundtruth: 912/912
+Trajectory estimated for: 912/912 poses
