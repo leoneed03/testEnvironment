@@ -66,7 +66,7 @@ def benchmark(dataset_root, out_poses_dir, intrinsics_depth_divider_string,
               out_poses_files='irls.txt ba.txt gt.txt',
               iterations=7):
     print("START")
-    process_name_example = '/usr/bin/time --verbose ~/projects/concurrentGDR/GDR/build-release/reconstructorTUM'  # args_parsed.process_name
+    process_name_example = '/usr/bin/time --verbose ~/projects/expGDR/GDR/build-release/reconstructorTUM'  # args_parsed.process_name
 
     usr_bin_time_log_file = 'memory.txt'
     console_log = 'console_log.txt'
