@@ -118,12 +118,15 @@ def plot_traj(ax, stamps, traj, style, color, label):
             x = []
             y = []
         last = stamps[i]
+
+
     if len(x) > 0:
         ax.plot(x, y, style, color=color, label=label)
 
 
 def angle(R):
-    return numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
+
+    return 180.0 / numpy.pi * numpy.arccos(min(1, max(-1, (numpy.trace(R[0:3, 0:3]) - 1) / 2)))
 
 
 def evaluate(first_file, second_file):

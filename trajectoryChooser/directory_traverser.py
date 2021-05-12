@@ -55,6 +55,15 @@ import evaluate_ate_are
 def get_user_system_time_memory_kb(filename_memory):
     f = open(filename_memory, 'r')
     text = f.read()
+
+    text_regular_real_time = 'Elapsed (.*?)\n'
+    found_real_time = re.findall(text_regular_real_time, text)
+    splitted_real_time = found_real_time[0].split()
+    splitted_real_time_hms = splitted_real_time[len(splitted_real_time) - 1]
+    print('found real time: ', splitted_real_time_hms)
+    secs = sum(float(x) * 60 ** i for i, x in enumerate(reversed(splitted_real_time_hms.split(':'))))
+
+    print('seconds ', secs)
     text_regular_user_time = 'User time (.*?)\n'
     found_user_time = re.findall(text_regular_user_time, text)
 
@@ -68,7 +77,7 @@ def get_user_system_time_memory_kb(filename_memory):
     splited_system_time = found_system_time[0].split()
     splited_memory = found_memory[0].split()
 
-    return splited_user_time[1], splited_system_time[1], splited_memory[1]
+    return splited_user_time[1], splited_system_time[1], splited_memory[1], secs
 
 
 if __name__ == "__main__":
@@ -87,6 +96,7 @@ if __name__ == "__main__":
 
     ate_are_dict = []
 
+    time_real_s = []
     time_s = []
     memory_mb = []
 
@@ -95,12 +105,14 @@ if __name__ == "__main__":
         print('start comparing iteration number ', i)
         directory_iteration = directory_root + '/' + str(i)
         memory_file = directory_iteration + '/memory.txt'
-        found_usr_time, found_system_time, found_memory_kb = get_user_system_time_memory_kb(memory_file)
+        found_usr_time, found_system_time, found_memory_kb, real_time = get_user_system_time_memory_kb(memory_file)
         print(found_usr_time)
         print(type(found_usr_time))
 
         sum_time = float(found_usr_time) + float(found_system_time)
         sum_Mb = float(found_memory_kb) / 1024.0
+
+        time_real_s.append(real_time)
         time_s.append(sum_time)
         memory_mb.append(sum_Mb)
 
@@ -114,8 +126,14 @@ if __name__ == "__main__":
     iterations = min(iterations / 2, (iterations - 1) / 2)
     print('median iteration is ', sorted_ate_iterations[int(iterations)])
 
+
+    print(time_real_s)
+
     print('time mean ', np.mean(time_s), ' s')
     print('time std ', np.std(time_s), ' s')
+
+    print('REAL time mean ', np.mean(time_real_s), ' real s')
+    print('REAL time std ', np.std(time_real_s), ' real s')
 
     print('memory mean ', np.mean(memory_mb), ' Mb')
     print('memory std ', np.std(memory_mb), ' Mb')
